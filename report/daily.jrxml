@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b897df69-3de1-456c-a27a-c895ae7723b4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="date" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     invoice.`invoice_no` AS invoice_invoice_no,
+     invoice.`user_id` AS invoice_user_id,
+     invoice.`date` AS invoice_date,
+     invoice.`status` AS invoice_status,
+     invoice.`ratings` AS invoice_ratings,
+     invoice.`net_total` AS invoice_net_total,
+     invoice.`type` AS invoice_type
+FROM
+     `invoice` invoice
+where invoice.`date`=$P{date}]]>
+	</queryString>
+	<field name="invoice_invoice_no" class="java.lang.Integer"/>
+	<field name="invoice_user_id" class="java.lang.String"/>
+	<field name="invoice_date" class="java.sql.Date"/>
+	<field name="invoice_status" class="java.lang.String"/>
+	<field name="invoice_ratings" class="java.lang.String"/>
+	<field name="invoice_net_total" class="java.lang.Double"/>
+	<field name="invoice_type" class="java.lang.String"/>
+	<variable name="tot" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{invoice_net_total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="5681ccf3-e197-4ac1-808d-f9756ca6ecd9"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Daily Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="117" y="46" width="157" height="22" uuid="20ac7b26-9c37-4acd-822d-2c8680000334"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="398" y="13" width="145" height="33" uuid="5b8bba53-d8f8-44c4-915d-cf6ef0fc480b"/>
+				<textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="9ede7522-8f4a-455d-9b1e-ddbfde72081b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="79" height="15" uuid="f08c7e3b-8095-4254-a63f-b75dea110457"/>
+				<text><![CDATA[Invoice No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="117" y="19" width="79" height="15" uuid="94f6fc4c-fe83-49b6-a449-a7e822b32b33"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="238" y="19" width="79" height="15" uuid="2838c768-4948-439f-83b4-d89e9788403d"/>
+				<text><![CDATA[Ratings]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="346" y="21" width="79" height="15" uuid="b337cf5f-a469-484e-8ca9-e4e43a77ab92"/>
+				<text><![CDATA[Net Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="446" y="19" width="79" height="15" uuid="ae515375-a286-4a6c-a19a-35c267668096"/>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="8b56c393-2205-4242-ad48-8c6baf3ffcb8"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="79" height="15" uuid="eb26301c-7160-4836-834e-8c90185f4cb0"/>
+				<textFieldExpression><![CDATA[$F{invoice_invoice_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="118" y="0" width="55" height="15" uuid="add338d2-73a2-41b2-9b6c-e2f53caead29"/>
+				<textFieldExpression><![CDATA[$F{invoice_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="346" y="0" width="79" height="15" uuid="32573093-238f-4b26-9ee0-9aaf77f9170f"/>
+				<textFieldExpression><![CDATA[$F{invoice_net_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="446" y="0" width="79" height="15" uuid="5a6a5418-c876-4c04-92a9-ad1337c426c3"/>
+				<textFieldExpression><![CDATA[$F{invoice_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="238" y="0" width="79" height="15" uuid="b2607713-fc88-4506-b1dc-b35e7b7e8e3f"/>
+				<textFieldExpression><![CDATA[$F{invoice_ratings}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="9" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="b2b1aeb0-7380-4e5b-a279-b7c4b1a54acd"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="5eb7a730-bb05-43d7-9cf8-0f7906ab2a3b"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="ecc84de2-c15e-4968-9aff-7b29d4d3016e"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="e6431e43-da32-42c8-898f-562520086c29"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="312" y="6" width="34" height="20" uuid="d6e5bb00-4327-4b06-839b-3cc03c916258"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="13"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="358" y="6" width="75" height="20" uuid="7ae32801-8cf2-42f9-8122-d77d749405b1"/>
+				<textFieldExpression><![CDATA[$V{tot}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

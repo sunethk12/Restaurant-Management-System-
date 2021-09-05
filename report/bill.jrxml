@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="in" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f3cedfd-2287-4ae9-90bd-5002a7b11a64">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="inv" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     invoice.`invoice_no` AS invoice_invoice_no,
+     invoice.`user_id` AS invoice_user_id,
+     invoice.`date` AS invoice_date,
+     invoice.`status` AS invoice_status,
+     invoice.`ratings` AS invoice_ratings,
+     invoice.`net_total` AS invoice_net_total,
+     invoice.`type` AS invoice_type,
+     invoice_food.`invoice_no` AS invoice_food_invoice_no,
+     invoice_food.`sales_unit_price` AS invoice_food_sales_unit_price,
+     invoice_food.`qty` AS invoice_food_qty,
+     invoice_food.`item_id` AS invoice_food_item_id,
+     invoice_food.`total` AS invoice_food_total,
+     food.`item_id` AS food_item_id,
+     food.`name` AS food_name,
+     food.`category` AS food_category,
+     food.`sales_unit_price` AS food_sales_unit_price,
+     food.`purchase_unit_price` AS food_purchase_unit_price
+FROM
+     `invoice` invoice,
+     `invoice_food` invoice_food,
+     `food` food
+where
+invoice.`invoice_no`=$P{inv}
+and
+invoice.`invoice_no`=  invoice_food.`invoice_no`
+and
+invoice_food.`item_id`=food.`item_id`]]>
+	</queryString>
+	<field name="invoice_invoice_no" class="java.lang.Integer"/>
+	<field name="invoice_user_id" class="java.lang.String"/>
+	<field name="invoice_date" class="java.sql.Date"/>
+	<field name="invoice_status" class="java.lang.String"/>
+	<field name="invoice_ratings" class="java.lang.String"/>
+	<field name="invoice_net_total" class="java.lang.Double"/>
+	<field name="invoice_type" class="java.lang.String"/>
+	<field name="invoice_food_invoice_no" class="java.lang.String"/>
+	<field name="invoice_food_sales_unit_price" class="java.lang.Double"/>
+	<field name="invoice_food_qty" class="java.lang.Double"/>
+	<field name="invoice_food_item_id" class="java.lang.Integer"/>
+	<field name="invoice_food_total" class="java.lang.Double"/>
+	<field name="food_item_id" class="java.lang.Integer"/>
+	<field name="food_name" class="java.lang.String"/>
+	<field name="food_category" class="java.lang.String"/>
+	<field name="food_sales_unit_price" class="java.lang.Double"/>
+	<field name="food_purchase_unit_price" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="161" y="8" width="148" height="40" uuid="067def9d-a4ab-4551-80f7-f5ea4121dba2"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Invoice]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="444" y="8" width="100" height="20" uuid="4cc40fbb-0381-4f36-bc03-840859c0981a"/>
+				<textFieldExpression><![CDATA[$P{inv}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="366" y="8" width="82" height="15" uuid="fdf95002-f489-4b84-b87c-501c7d4b697d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Invoice No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="366" y="33" width="82" height="15" uuid="89d9be9c-04a6-48a0-afb2-7bb30653de22"/>
+				<text><![CDATA[Invoice Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="448" y="33" width="47" height="15" uuid="6f8c83d6-93e6-4e5b-8319-10d6074a08b4"/>
+				<textFieldExpression><![CDATA[$F{invoice_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="36" width="555" height="1" uuid="033b35f0-9266-43d3-970d-b5f86b5145a4"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="171" y="20" width="74" height="15" uuid="b43b97c8-6c3c-41d4-a32f-030183f040b2"/>
+				<text><![CDATA[Unit Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="309" y="21" width="29" height="15" uuid="8c90d7eb-9816-4af4-a743-689fee2b29fb"/>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="407" y="20" width="41" height="15" uuid="dc15723c-2994-45fe-9638-6f74e818c32c"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="21" width="46" height="15" uuid="b7568600-412c-456f-983a-4ba53385e614"/>
+				<text><![CDATA[Item ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="68" y="21" width="82" height="15" uuid="bcacda00-0718-4f5a-ac88-d92cea191ed1"/>
+				<text><![CDATA[Food Name]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="617423a7-2e15-4432-80d6-ad093bd823d1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="db565717-fc18-4306-8cfe-fdec4910deb5"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="67" y="0" width="82" height="15" uuid="ac1a5634-87fd-4b8f-917b-436bb595194c"/>
+				<textFieldExpression><![CDATA[$F{food_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="405" y="1" width="60" height="15" uuid="16cff609-9b09-462d-937a-f13cb85ab048"/>
+				<textFieldExpression><![CDATA[$F{invoice_food_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="189" y="0" width="74" height="15" uuid="b2b3014f-ca5c-4288-88a7-74ac7b8b0e66"/>
+				<textFieldExpression><![CDATA[$F{invoice_food_sales_unit_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="317" y="0" width="0" height="15" uuid="6b881d38-099a-4e3b-b310-63d0988b6e9b"/>
+				<textFieldExpression><![CDATA[$F{invoice_food_qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="3" y="1" width="46" height="15" uuid="5b229af3-5f04-475e-ad5b-96a3704df9a5"/>
+				<textFieldExpression><![CDATA[$F{food_item_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="b7d1c8a7-7ad5-40a1-b82f-8801548a53b8"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="5f235eba-9a5b-4685-87ba-26d80d251fad"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="6d7dadda-b1ba-4064-9d7d-23cc68803171"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="71464e28-ee86-4b70-a19f-90d6d2c0c3d2"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="99" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="407" y="38" width="137" height="26" uuid="d66a240c-5aa4-417f-aa8d-a63ca3be5035"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{invoice_net_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="324" y="38" width="83" height="26" uuid="67f1c671-124d-4bc7-9b78-84f06ca780bf"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Net Total]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="324" y="37" width="231" height="1" uuid="7b10cb5b-e4c0-4885-b150-aa89183f49e4"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="324" y="64" width="229" height="1" uuid="b0be1530-9604-47df-98cd-334a7d469287"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="324" y="70" width="229" height="1" uuid="e43c195c-f73d-48b8-9bca-9a38e94c8c24"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

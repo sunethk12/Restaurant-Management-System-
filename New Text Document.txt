@@ -1,0 +1,16 @@
+try {
+
+            String jasp = "Reports/Invoice.jrxml";
+            JasperReport jr = JasperCompileManager.compileReport(jasp);
+            Map<String, Object> params = new HashMap<String, Object>();
+            String in = "AS/INV/" + "" + jTextField1.getText();
+
+            params.put("inv", in);
+            //System.out.println(in);
+//            params.put("emp_id", jTextField9.getText());
+            JasperPrint jp = JasperFillManager.fillReport(jr, params, DB.conect());
+            JasperViewer jv = new JasperViewer(jp);
+            jv.viewReport(jp, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
